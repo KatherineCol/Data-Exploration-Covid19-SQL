@@ -3,20 +3,20 @@
 Analysis for latest updates, on COVID19 globally. Data Source; retrive from https://ourworldindata.org/covid-deaths SQL Data Exploration FUNCTIONS used: Joins, CTE's, Temp Tables, Windows Functions, Aggregate Functions, Creating Views, Converting Data Types.
 
 
- #### 1. Looking at Total Cases VS Total Deaths
-        -- Shows the liklyhood of dying by conutry
+ #### 1. Total Cases VS Total Deaths
+           -- Shows the liklyhood of dying by conutry
            SELECT location, date,total_cases_per_million, total_deaths, (total_deaths/total_cases_per_million)*1.0 as DeathPercentaje
            From PortafolioProject..CovidDeaths
            WHERE location like'%states%'
            ORDER BY 1,2	
-#### 2. Looking at the Total Cases VS The Population
-       -- Shows what Population % that has contracted COVID 
+#### 2. The Total Cases VS The Population
+           -- Shows what Population % that has contracted COVID 
            SELECT location, date, population, total_cases_per_million,  (population/total_cases_per_million)*100 as PercentPopulationInfected
            From PortafolioProject..CovidDeaths
            WHERE location like'%states%'
            ORDER BY total_cases_per_million
            
-#### 3. Looking Countries with highest Infeccion rates compared to population 
+#### 3. Countries with highest Infeccion rates compared to population 
 
            SELECT location,population, max(total_cases_per_million) as highestInfectionCount,  max((population/total_cases_per_million))*100 as PercentPopulationInfected
            FROM PortafolioProject..CovidDeaths
