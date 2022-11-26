@@ -20,7 +20,7 @@ Analysis for latest updates, on COVID19 globally. Data Source; retrive from http
 
            SELECT location,population, max(total_cases_per_million) as highestInfectionCount,  max((population/total_cases_per_million))*100 as PercentPopulationInfected
            FROM PortafolioProject..CovidDeaths
-           GROUP BY location,population
+           GROUP BY location
            --WHERE location like'%state%'
            ORDER BY PercentPopulationInfected desc
            
@@ -38,7 +38,7 @@ Analysis for latest updates, on COVID19 globally. Data Source; retrive from http
            sum(CONVERT(int,vac.new_vaccinations)) over (Partition by dea.location order by dea.location,dea.date) as RollingPeopleVaccinated
            FROM PortafolioProject..CovidDeaths dea 
            JOIN  PortafolioProject..CovidVaccinations vac
-          	ON dea.location= vac.location and dea.date=vac.date
+          ON dea.location= vac.location and dea.date=vac.date
            WHERE dea.continent is not null
            ORDER BY  2,3
 
