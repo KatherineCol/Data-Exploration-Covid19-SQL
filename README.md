@@ -45,9 +45,8 @@ Analysis for latest updates, on COVID19 globally. Data Source; retrive from http
   #### 6. Creating View to store data for later visualizations
 
           Create View PercentPopulationVaccinated as
-          SELECT dea.continent, dea.location, dea.date, dea.population, vac.new_vaccinations
-, SUM(CONVERT(int,vac.new_vaccinations)) OVER (Partition by dea.Location Order by dea.location, dea.Date) as RollingPeopleVaccinated
---, (RollingPeopleVaccinated/population)*100
+          SELECT dea.continent, dea.location, dea.date, dea.population, vac.new_vaccinations, SUM(CONVERT(int,vac.new_vaccinations)) OVER (Partition by 		dea.Location Order by dea.location, dea.Date) as RollingPeopleVaccinated
+		--, (RollingPeopleVaccinated/population)*100
           FROM PortfolioProject..CovidDeaths dea
           JOIN PortfolioProject..CovidVaccinations vac
 	         On dea.location = vac.location and dea.date = vac.date
