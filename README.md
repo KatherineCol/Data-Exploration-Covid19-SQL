@@ -20,26 +20,35 @@ Analysis for latest updates, on COVID19 globally. Data Source; retrive from http
 
            SELECT location,population, max(total_cases_per_million) as highestInfectionCount,  max((population/total_cases_per_million))*100 as PercentPopulationInfected
            FROM PortafolioProject..CovidDeaths
-           GROUP BY location
+           GROUP BY location, population
            --WHERE location like'%state%'
            ORDER BY PercentPopulationInfected desc
            
-  #### 4. Showing the countries with the highest death count per population
+  #### 4. Showing the countries with the highest death count
 
            SELECT location,max(CAST(total_deaths AS bigint)) as totalDeathsCount
            FROM PortafolioProject..CovidDeaths
            WHERE continent is not null
-           GROUP BY location, population
+           GROUP BY location
            ORDER BY totalDeathsCount DESC
 
- #### 5. 7. Total population VS Vaccinations JOIN FUNCTION
+ #### 5. Total population VS Vaccinations JOIN FUNCTION
 
            SELECT dea.continent,dea.location,dea.date,dea.population,vac.new_vaccinations,
            sum(CONVERT(int,vac.new_vaccinations)) over (Partition by dea.location order by dea.location,dea.date) as RollingPeopleVaccinated
            FROM PortafolioProject..CovidDeaths dea 
            JOIN  PortafolioProject..CovidVaccinations vac
-          ON dea.location= vac.location and dea.date=vac.date
+           ON dea.location= vac.location and dea.date=vac.date
            WHERE dea.continent is not null
            ORDER BY  2,3
 
-         
+  #### 6. Creating View to store data for later visualizations
+
+          Create View PercentPopulationVaccinated as
+          SELECT dea.continent, dea.location, dea.date, dea.population, vac.new_vaccinations
+, SUM(CONVERT(int,vac.new_vaccinations)) OVER (Partition by dea.Location Order by dea.location, dea.Date) as RollingPeopleVaccinated
+--, (RollingPeopleVaccinated/population)*100
+          FROM PortfolioProject..CovidDeaths dea
+          JOIN PortfolioProject..CovidVaccinations vac
+	         On dea.location = vac.location and dea.date = vac.date
+          WHERE dea.continent is not null 
