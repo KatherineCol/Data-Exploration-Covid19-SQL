@@ -2,10 +2,13 @@
 
 Analysis for latest updates, on COVID19 globally. Data Source; retrive from https://ourworldindata.org/covid-deaths 
 FUNCTIONS used: 
--Joins, 
--CTE's, 
--Temp Tables, Windows Functions, Aggregate Functions, Creating Views, Converting Data Types.
-
+* Joins
+* CTE's
+* Temp Tables
+* Windows Functions
+* Aggregate Functions
+* Creating Views
+* Converting Data Types
 
  #### 1. Total Cases VS Total Deaths
            -- Shows the liklyhood of dying by conutry
