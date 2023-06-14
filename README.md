@@ -1,4 +1,4 @@
-# Data Exploration Covid19 SQL 2022
+# Data Exploration COVID-19 SQL 2022
 
 Analysis for latest updates, on COVID19 globally. Data Source; retrive from https://ourworldindata.org/covid-deaths 
 FUNCTIONS used: 
